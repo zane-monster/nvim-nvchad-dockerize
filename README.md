@@ -1,4 +1,26 @@
-# docker compose lifecycle
+- Build a docker image with [nvim](https://neovim.io/), [nvchad](https://nvchad.github.io/), [arch linux](https://archlinux.org/)
+
+# buld docker image
+
+1. update the base image
+
+```sh
+docker pull archlinux:base-devel
+# list images
+docker images
+# clean old images
+docker image rm a570
+```
+
+2. build the image
+
+```sh
+docker build -f Dockerfile.nvchad.build -t zane/nvchad .
+```
+
+# How to use this docker image
+
+## docker compose lifecycle
 
 1. start docker compose services
 
@@ -30,7 +52,7 @@ docker-compose exec --entrypoint /bin/bash nvim
 
 4. exit in the first term and docker rm ...
 
-# docker lifecycle
+## docker lifecycle
 
 1. start a new container in the first term
 
@@ -57,27 +79,9 @@ docker exec -u 0  -it <running container id> bash
 
 4. exit in the first term and docker rm ...
 
-# buld docker image
+## After a contain first running
 
-1. update the base image
-
-```sh
-docker pull archlinux:base-devel
-# list images
-docker images
-# clean old images
-docker image rm a570
-```
-
-2. build the image
-
-```sh
-docker build -f Dockerfile.nvchad.build -t zane/nvchad .
-```
-
-# After a contain first running
-
-## init nvim
+### init nvim
 
 1. start nvim, then :qa
 2. start nvim, then :qa
@@ -85,7 +89,7 @@ docker build -f Dockerfile.nvchad.build -t zane/nvchad .
 4. start nvim, then open a go file, then :qa
 5. start nvim, then :checkhealth
 
-## updat nvchad
+### updat nvchad
 
 ```
 <lead> + u + u
