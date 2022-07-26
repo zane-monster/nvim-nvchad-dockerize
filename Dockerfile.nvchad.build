@@ -1,0 +1,123 @@
+# syntax = docker/dockerfile:1.3-labs
+
+# suggestion:
+# install [Sarasa Mono SC Nerd](https://github.com/laishulu/Sarasa-Mono-SC-Nerd)
+# this font using by terminal, on client
+FROM archlinux:base-devel AS base
+
+USER root
+
+RUN pacman -Syu --ignore linux,linux-headers,linux-api-headers --noconfirm \
+    && pacman -S tmux ctags vi reflector rsync curl git neovim \
+       python-pip \
+       go \
+       nodejs-lts-gallium npm \
+       ninja \
+       deno \
+       shfmt \
+       clang \
+       ripgrep \
+       fd \
+       docker \
+       wget \
+       unzip \
+       openssh \
+       --noconfirm \
+    && pacman -Scc --noconfirm \
+    && pip install wheel virtualenv pipenv --no-cache-dir
+
+RUN useradd -m nv \
+    && echo '%nv ALL=(ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo \
+    && usermod -G docker nv
+    # && chgrp docker /var/run/docker.sock
+
+FROM base AS files
+
+USER nv
+
+RUN <<EOF cat >> $HOME/.bash_aliases
+alias lt='ls --human-readable --size -1 -S --classify'
+alias myip='curl ipinfo.io/ip'
+alias vim='nvim'
+alias tmux='tmux -2'
+EOF
+
+RUN <<EOF cat >> $HOME/.bashrc
+cd $HOME
+export PATH="$HOME/go/bin:$HOME/.local/bin:${PATH}"
+if [ -e $HOME/.bash_aliases ]; then
+    source $HOME/.bash_aliases
+fi
+EOF
+
+RUN <<EOF cat >> $HOME/.tmux.conf
+set-option -sg escape-time 10
+set-option -g focus-events on
+set-option -g default-terminal "screen-256color"
+set -g history-limit 10000
+set-option -sa terminal-overrides ',xterm:RGB'
+EOF
+
+RUN <<EOF cat >> $HOME/.profile
+PATH="$HOME/.local/bin:$PATH"
+export npm_config_prefix="$HOME/.local"
+EOF
+
+RUN source $HOME/.bashrc \
+    && source $HOME/.profile
+
+# COPY ./configs $HOME
+
+FROM files AS py
+
+USER nv
+RUN pip install --user --no-cache-dir \
+        pipenv \
+        pynvim neovim 
+
+FROM py AS node
+
+USER nv
+RUN npm set prefix="$HOME/.local" \
+    && npm i -g eslint \
+      neovim \
+      typescript typescript-formatter typescript-language-server \
+      bash-language-server \
+      vim-language-server \
+      yarn \
+      @fsouza/prettierd \
+      emmet-ls \
+      vscode-langservers-extracted
+
+FROM node AS lua
+
+USER nv
+RUN mkdir -p $HOME/.config && cd $HOME/.config \
+    && git clone https://github.com/sumneko/lua-language-server \
+    && cd ./lua-language-server \
+    && git submodule update --init --recursive \
+    && cd 3rd/luamake \
+    && ./compile/install.sh \
+    && cd ../.. \
+    && ./3rd/luamake/luamake rebuild
+
+FROM lua AS grpc_dev
+
+USER root
+RUN pacman -S protobuf --noconfirm
+USER nv
+# https://grpc.io/docs/languages/go/quickstart/
+# Go plugins for the protocol compiler:
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 \
+    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 \
+    && export PATH="$PATH:$(go env GOPATH)/bin"
+
+FROM grpc_dev AS nvchad
+
+USER nv
+RUN git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 \
+    && mkdir -p $HOME/.config/nvim/lua/custom/plugins
+
+COPY --chown=nv ./nvchad /home/nv/.config/nvim/lua
+
+CMD ["/bin/bash"]

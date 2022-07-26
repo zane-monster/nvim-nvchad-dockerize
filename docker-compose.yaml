@@ -1,0 +1,18 @@
+version: "3.9" # optional since v1.27.0
+
+sevices:
+  nvim:
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+      - "5000:5000"
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - c:\a:/home/nv/a
+      - c:\Users\zane_\.ssh:/home/nv/.ssh
+      - //var/run/docker.sock:/var/run/docker.sock
+      - vim-dockerize_data-red-duck
+
+volumes:
+  vim-dockerize_data-red-duck:
