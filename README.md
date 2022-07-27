@@ -86,10 +86,10 @@ docker exec -u 0  -it <running container id> bash
 1. start nvim, then :qa
 2. start nvim, then :qa
 3. start nvim, then :GoInstallBinaries, then :qa
-4. start nvim, then open a go file, then :qa
+4. start nvim, then open a go file(or cpp, js...), then :qa
 5. start nvim, then :checkhealth
 
-### updat nvchad
+### update nvchad
 
 ```
 <lead> + u + u

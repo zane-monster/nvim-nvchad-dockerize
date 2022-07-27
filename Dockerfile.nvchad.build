@@ -22,6 +22,7 @@ RUN pacman -Syu --ignore linux,linux-headers,linux-api-headers --noconfirm \
        wget \
        unzip \
        openssh \
+       cfssl \
        --noconfirm \
     && pacman -Scc --noconfirm \
     && pip install wheel virtualenv pipenv --no-cache-dir
