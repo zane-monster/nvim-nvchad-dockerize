@@ -1,7 +1,8 @@
 version: "3.9" # optional since v1.27.0
 
-sevices:
+services:
   nvim:
+    image: zane/nvchad
     ports:
       - "3000:3000"
       - "4000:4000"

@@ -22,6 +22,8 @@ docker build -f Dockerfile.nvchad.build -t zane/nvchad .
 
 ## docker compose lifecycle
 
+### first, creating and starting a container
+
 1. start docker compose services
 
 ```sh
@@ -51,6 +53,13 @@ docker-compose exec --entrypoint /bin/bash nvim
 ```
 
 4. exit in the first term and docker rm ...
+
+### starting an exited container
+
+```sh
+docker start -ai <exited container id>
+docker exec -it <running container id> bash
+```
 
 ## docker lifecycle
 
