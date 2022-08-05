@@ -79,7 +79,7 @@ return {
         end
     },
 
-    ["Pocco81/TrueZen.nvim"] = {
+    ["Pocco81/true-zen.nvim"] = {
         cmd = {"TZAtaraxis", "TZMinimalist", "TZFocus"},
         config = function() require "custom.plugins.truezen" end
     },
@@ -105,7 +105,7 @@ return {
         -- end,
     },
 
-    ["Pocco81/AutoSave.nvim"] = {
+    ["Pocco81/auto-save.nvim"] = {
         config = function() require "custom.plugins.autosave" end
     }
 }

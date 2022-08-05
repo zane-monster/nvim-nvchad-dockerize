@@ -9,20 +9,14 @@ USER root
 
 RUN pacman -Syu --ignore linux,linux-headers,linux-api-headers --noconfirm \
     && pacman -S tmux ctags vi reflector rsync curl git neovim \
+       fd wget unzip ripgrep openssh \
+       lua-language-server \
        python-pip \
-       go \
-       nodejs-lts-gallium npm \
-       ninja \
-       deno \
+       nodejs-lts-gallium npm deno \
        shfmt \
        clang \
-       ripgrep \
-       fd \
        docker \
-       wget \
-       unzip \
-       openssh \
-       cfssl \
+       go cfssl protobuf \
        --noconfirm \
     && pacman -Scc --noconfirm \
     && pip install wheel virtualenv pipenv --no-cache-dir
@@ -90,22 +84,20 @@ RUN npm set prefix="$HOME/.local" \
       emmet-ls \
       vscode-langservers-extracted
 
-FROM node AS lua
+FROM node AS grpc_dev
 
-USER nv
-RUN mkdir -p $HOME/.config && cd $HOME/.config \
-    && git clone https://github.com/sumneko/lua-language-server \
-    && cd ./lua-language-server \
-    && git submodule update --init --recursive \
-    && cd 3rd/luamake \
-    && ./compile/install.sh \
-    && cd ../.. \
-    && ./3rd/luamake/luamake rebuild
+# USER nv
+# RUN mkdir -p $HOME/.config && cd $HOME/.config \
+#     && git clone --depth=1 https://github.com/sumneko/lua-language-server \
+#     && cd ./lua-language-server \
+#     && git submodule update --depth 1 --init --recursive \
+#     && cd 3rd/luamake \
+#     && ./compile/install.sh \
+#     && cd ../.. \
+#     && ./3rd/luamake/luamake rebuild
 
-FROM lua AS grpc_dev
+# FROM lua AS grpc_dev
 
-USER root
-RUN pacman -S protobuf --noconfirm
 USER nv
 # https://grpc.io/docs/languages/go/quickstart/
 # Go plugins for the protocol compiler:
@@ -119,6 +111,6 @@ USER nv
 RUN git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 \
     && mkdir -p $HOME/.config/nvim/lua/custom/plugins
 
-COPY --chown=nv ./nvchad /home/nv/.config/nvim/lua
+COPY --chown=nv ./nvim-linux/.config /home/nv/.config
 
 CMD ["/bin/bash"]

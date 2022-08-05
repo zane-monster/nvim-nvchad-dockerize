@@ -1,5 +1,16 @@
 - Build a docker image with [nvim](https://neovim.io/), [nvchad](https://nvchad.github.io/), [arch linux](https://archlinux.org/)
 
+# Support languages
+
+- go, protobuf
+- javascript, typescript
+- html, css, JSON, ESLint
+- lua
+- c/c++
+- python
+- ninja
+- bash
+
 # buld docker image
 
 1. update the base image
@@ -20,6 +31,11 @@ docker build -f Dockerfile.nvchad.build -t zane/nvchad .
 
 # How to use this docker image
 
+1. create a docker volume 
+
+```sh
+docker volume create nvim_red_duck
+```
 ## docker compose lifecycle
 
 ### first, creating and starting a container
@@ -27,20 +43,13 @@ docker build -f Dockerfile.nvchad.build -t zane/nvchad .
 1. start docker compose services
 
 ```sh
-docker-compose up
-```
-
-then, the nvim container is creaded and in exited status.
-
-2. connect to the service nvim in the first term
-
-```sh
+cd nvim-nvchad-dockerize
 docker-compose run nvim bash
 ```
 
-the nvim container is running, now.
+then, the nvim container is creaded and interactived with shell.
 
-3. connect to the container in other terms
+2. connect to the container in other terms
 
 ```sh
 # get the id of nvim container

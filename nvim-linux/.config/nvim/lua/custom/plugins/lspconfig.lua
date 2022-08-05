@@ -24,8 +24,10 @@ M.setup_lsp = function(attach, capabilities)
    end
 
    -- lua lsp!
-   local sumneko_root_path = "/home/nv/.config/lua-language-server"
-   local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
+   -- local sumneko_root_path = "/home/nv/.config/lua-language-server"
+   local sumneko_root_path = "/usr/lib/lua-language-server"
+   -- local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
+   local sumneko_binary = "/usr/bin/lua-language-server"
 
    lspconfig.sumneko_lua.setup {
       cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
