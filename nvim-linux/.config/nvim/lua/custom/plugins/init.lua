@@ -1,5 +1,12 @@
 return {
 
+    ["neovim/nvim-lspconfig"] = {
+        config = function()
+            require "plugins.configs.lspconfig"
+            require "custom.plugins.lspconfig"
+        end
+    },
+
     ["vimwiki/vimwiki"] = {
         config = function()
             vim.g.vimwiki_list = {
@@ -13,6 +20,7 @@ return {
     },
 
     ["nvim-telescope/telescope.nvim"] = {module = "telescope"},
+
     -- golang settings BEGIN ---
     ["mfussenegger/nvim-dap"] = {
         -- config = function() require("nvim-dap").setup() end
@@ -42,6 +50,7 @@ return {
     ["ray-x/go.nvim"] = {config = function() require "custom.plugins.go" end},
     -- golang settings END
 
+    -- copy from nvim
     ["ojroques/vim-oscyank"] = {
         config = function()
             if vim.env.SSH_CLIENT or vim.env.SSH_TTY then
@@ -51,6 +60,7 @@ return {
         end
     },
 
+    -- autoclose tags in html, jsx etc
     ["windwp/nvim-ts-autotag"] = {
         ft = {"html", "javascriptreact"},
         after = "nvim-treesitter",
@@ -61,6 +71,7 @@ return {
         end
     },
 
+    -- format & linting
     ["jose-elias-alvarez/null-ls.nvim"] = {
         after = "nvim-lspconfig",
         config = function() require "custom.plugins.null-ls" end
@@ -79,17 +90,20 @@ return {
         end
     },
 
+    -- minimal modes
     ["Pocco81/true-zen.nvim"] = {
         cmd = {"TZAtaraxis", "TZMinimalist", "TZFocus"},
         config = function() require "custom.plugins.truezen" end
     },
 
+    -- notes stuff
     ["nvim-neorg/neorg"] = {
         ft = "norg",
         after = "nvim-treesitter",
         config = function() require "custom.plugins.neorg" end
     },
 
+    -- get highlight group under cursor
     ["nvim-treesitter/playground"] = {
         cmd = "TSCaptureUnderCursor",
         config = function() require "nvim-treesitter.configs" end
@@ -98,6 +112,7 @@ return {
     ["simrat39/symbols-outline.nvim"] = {},
 
     ["nvim-lua/plenary.nvim"] = {},
+
     ["sindrets/diffview.nvim"] = {
         after = "plenary.nvim"
         -- config = function()
