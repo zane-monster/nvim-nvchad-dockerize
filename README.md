@@ -134,3 +134,15 @@ reflector -f 5 --country 'United States' \
 --completion-percent 100 \
 --save /etc/pacman.d/mirrorlist
 ```
+
+# data backup
+
+## cp "old_volume" to "new_volume" 
+```sh
+docker volume create --name new_volume
+
+docker container run --rm -it \
+           -v old_volume:/from \
+           -v new_volume:/to \
+           alpine ash -c "cd /from ; cp -av . /to"
+```
