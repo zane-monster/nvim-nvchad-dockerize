@@ -50,10 +50,10 @@ docker volume create nvim_red_duck
 
 ```sh
 cd nvim-nvchad-dockerize
-docker-compose run nvim bash
+docker-compose run --service-ports nvim bash
 ```
 
-then, the nvim container is creaded and interactived with shell.
+then, the nvim container is creaded and login the shell.
 
 2. connect to the container in other terms
 
@@ -61,10 +61,6 @@ then, the nvim container is creaded and interactived with shell.
 # get the id of nvim container
 docker ps -a
 docker exec -it <the nvim container id> bash
-
-# Invalid command in windows ???
-docker-compose exec nvim bash
-docker-compose exec --entrypoint /bin/bash nvim
 ```
 
 4. exit in the first term and docker rm ...

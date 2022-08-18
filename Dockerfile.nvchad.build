@@ -7,8 +7,9 @@ FROM archlinux:base-devel AS base
 
 USER root
 
-RUN pacman -Syu --ignore linux,linux-headers,linux-api-headers --noconfirm \
-    && pacman -S tmux ctags vi reflector rsync curl git neovim \
+RUN pacman -Syyu --ignore linux,linux-headers,linux-api-headers --noconfirm \
+    && pacman -S git base-devel tree \
+       tmux ctags vi reflector rsync curl neovim \
        fd wget unzip ripgrep openssh \
        lua-language-server \
        python-pip \
@@ -17,7 +18,7 @@ RUN pacman -Syu --ignore linux,linux-headers,linux-api-headers --noconfirm \
        clang \
        docker \
        go cfssl protobuf \
-       --noconfirm \
+       --noconfirm --needed \
     && pacman -Scc --noconfirm \
     && pip install wheel virtualenv pipenv --no-cache-dir
 
@@ -63,15 +64,24 @@ RUN source $HOME/.bashrc \
 
 # COPY ./configs $HOME
 
-FROM files AS py
+FROM files AS yay
+USER nv
+RUN cd $HOME \
+    && git clone https://aur.archlinux.org/yay-bin.git \
+    && cd $HOME/yay-bin \
+    && makepkg -si --noconfirm \
+    && cd $HOME \
+    && rm -rf yay-bin \
+    && yay -Syu --aur --noconfirm \
+    && yay -S hugo-extended-bin --noconfirm
 
+FROM yay as py
 USER nv
 RUN pip install --user --no-cache-dir \
         pipenv \
         pynvim neovim 
 
 FROM py AS node
-
 USER nv
 RUN npm set prefix="$HOME/.local" \
     && npm i -g eslint \
@@ -85,19 +95,6 @@ RUN npm set prefix="$HOME/.local" \
       vscode-langservers-extracted
 
 FROM node AS grpc_dev
-
-# USER nv
-# RUN mkdir -p $HOME/.config && cd $HOME/.config \
-#     && git clone --depth=1 https://github.com/sumneko/lua-language-server \
-#     && cd ./lua-language-server \
-#     && git submodule update --depth 1 --init --recursive \
-#     && cd 3rd/luamake \
-#     && ./compile/install.sh \
-#     && cd ../.. \
-#     && ./3rd/luamake/luamake rebuild
-
-# FROM lua AS grpc_dev
-
 USER nv
 # https://grpc.io/docs/languages/go/quickstart/
 # Go plugins for the protocol compiler:
@@ -106,7 +103,6 @@ RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 \
     && export PATH="$PATH:$(go env GOPATH)/bin"
 
 FROM grpc_dev AS nvchad
-
 USER nv
 RUN git clone https://github.com/NvChad/NvChad $HOME/.config/nvim --depth 1 \
     && mkdir -p $HOME/.config/nvim/lua/custom/plugins
