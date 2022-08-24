@@ -142,3 +142,10 @@ docker container run --rm -it \
            -v new_volume:/to \
            alpine ash -c "cd /from ; cp -av . /to"
 ```
+
+# Windows WSL2
+## restart WSL2 for vmmem process
+```sh
+wsl -shutdown
+```
+then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
