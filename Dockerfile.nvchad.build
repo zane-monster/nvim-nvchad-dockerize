@@ -9,7 +9,7 @@ USER root
 
 RUN pacman -Syyu --ignore linux,linux-headers,linux-api-headers --noconfirm \
     && pacman -S git base-devel tree \
-       tmux ctags vi reflector rsync curl neovim \
+       tmux ctags vi reflector rsync curl neovim zip \
        fd wget unzip ripgrep openssh \
        lua-language-server \
        python-pip \

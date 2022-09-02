@@ -72,6 +72,7 @@ return {
     },
 
     -- format & linting
+    --  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
     ["jose-elias-alvarez/null-ls.nvim"] = {
         after = "nvim-lspconfig",
         config = function() require "custom.plugins.null-ls" end
@@ -109,8 +110,10 @@ return {
         config = function() require "nvim-treesitter.configs" end
     },
 
+    --  A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages. 
     ["simrat39/symbols-outline.nvim"] = {},
 
+    -- All the lua functions I don't want to write twice.
     ["nvim-lua/plenary.nvim"] = {},
 
     ["sindrets/diffview.nvim"] = {
