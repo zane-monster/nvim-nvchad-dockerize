@@ -44,7 +44,8 @@ return {
 
     ["ray-x/navigator.lua"] = {
         after = {"guihua.lua", "nvim-lspconfig"},
-        config = function() require("navigator").setup() end
+        config = function() require("navigator").setup() end,
+        branch = "neovim_0.7"
     },
 
     ["ray-x/go.nvim"] = {config = function() require "custom.plugins.go" end},
