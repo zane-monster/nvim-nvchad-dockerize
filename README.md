@@ -72,7 +72,7 @@ docker start -ai <exited container id>
 docker exec -it <running container id> bash
 ```
 
-## docker lifecycle
+## docker lifecycle without docker compose
 
 1. start a new container in the first term
 
