@@ -37,7 +37,7 @@ docker build -f Dockerfile.nvchad.build -t zane/nvchad .
 
 # How to use this docker image
 
-1. create a docker volume 
+- create a docker volume if no existed volume before
 
 ```sh
 docker volume create nvim_red_duck

@@ -1,130 +1,165 @@
+local overrides = require "custom.plugins.overrides"
+
 return {
 
-    ["neovim/nvim-lspconfig"] = {
-        config = function()
-            require "plugins.configs.lspconfig"
-            require "custom.plugins.lspconfig"
-        end
+  --- default plugins
+  ["goolord/alpha-nvim"] = {
+    disable = false,
+    cmd = "Alpha",
+    override_options = overrides.alpha,
+  },
+
+  ["neovim/nvim-lspconfig"] = {
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.plugins.lspconfig"
+    end
+  },
+
+ ["nvim-telescope/telescope.nvim"] = { module = "telescope" },
+
+  --- override default configs
+  ["kyazdani42/nvim-tree.lua"] = {
+    override_options = overrides.nvimtree,
+  },
+
+  ["nvim-treesitter/nvim-treesitter"] = {
+    override_options = overrides.treesitter,
+  },
+
+  ["lukas-reineke/indent-blankline.nvim"] = {
+    override_options = overrides.blankline,
+  },
+
+  --- custom plugins ---------- 
+  --- --- golang settings BEGIN ---------- 
+  ["mfussenegger/nvim-dap"] = {
+    config = function() require("nvim-dap").setup() end
+  },
+  ["rcarriga/nvim-dap-ui"] = {
+    config = function() require("nvim-dap-ui").setup() end
+  },
+  ["theHamsta/nvim-dap-virtual-text"] = {
+    config = function() require("nvim-dap-virtual-text").setup() end
+  },
+  ["nvim-telescope/telescope-dap.nvim"] = {
+    after = {
+      "telescope.nvim", "nvim-dap", "nvim-dap-ui", "nvim-dap-virtual-text"
     },
+    config = function() require("telescope").load_extension "dap" end
+  },
 
-    ["vimwiki/vimwiki"] = {
-        config = function()
-            vim.g.vimwiki_list = {
-                {
-                    path = 'G:\\My Drive\\Document_backup\\vimwiki\\',
-                    syntax = 'markdown',
-                    ext = '.md'
-                }
-            }
-        end
-    },
+  ["ray-x/guihua.lua"] = {
+    config = function() os.execute("cd lua/fzy && make") end
+  },
 
-    ["nvim-telescope/telescope.nvim"] = {module = "telescope"},
+  ["ray-x/navigator.lua"] = {
+    after = { "guihua.lua", "nvim-lspconfig" },
+    config = function() require("navigator").setup() end
+  },
 
-    -- golang settings BEGIN ---
-    ["mfussenegger/nvim-dap"] = {
-        -- config = function() require("nvim-dap").setup() end
-    },
-    ["rcarriga/nvim-dap-ui"] = {
-        -- config = function() require("nvim-dap-ui").setup() end
-    },
-    ["theHamsta/nvim-dap-virtual-text"] = {
-        config = function() require("nvim-dap-virtual-text").setup() end
-    },
-    ["nvim-telescope/telescope-dap.nvim"] = {
-        after = {
-            "telescope.nvim", "nvim-dap", "nvim-dap-ui", "nvim-dap-virtual-text"
-        },
-        config = function() require("telescope").load_extension "dap" end
-    },
+  ["ray-x/go.nvim"] = { config = function() require "custom.plugins.go" end },
+  -- golang settings END
 
-    ["ray-x/guihua.lua"] = {
-        config = function() os.execute("cd lua/fzy && make") end
-    },
+  -- copy from nvim
+  ["ojroques/vim-oscyank"] = {
+    config = function()
+      if vim.env.SSH_CLIENT or vim.env.SSH_TTY then
+        vim.cmd("autocmd!")
+        vim.cmd("autocmd TextYankPost * OSCYankReg +<CR>")
+      end
+    end
+  },
 
-    ["ray-x/navigator.lua"] = {
-        after = {"guihua.lua", "nvim-lspconfig"},
-        config = function() require("navigator").setup() end,
-        branch = "neovim_0.7"
-    },
+  -- autoclose tags in html, jsx etc
+  ["windwp/nvim-ts-autotag"] = {
+    ft = { "html", "javascriptreact" },
+    after = "nvim-treesitter",
+    config = function()
+      local present, autotag = pcall(require, "nvim-ts-autotag")
 
-    ["ray-x/go.nvim"] = {config = function() require "custom.plugins.go" end},
-    -- golang settings END
+      if present then autotag.setup() end
+    end
+  },
 
-    -- copy from nvim
-    ["ojroques/vim-oscyank"] = {
-        config = function()
-            if vim.env.SSH_CLIENT or vim.env.SSH_TTY then
-                vim.cmd("autocmd!")
-                vim.cmd("autocmd TextYankPost * OSCYankReg +<CR>")
-            end
-        end
-    },
+  -- format & linting
+  ["jose-elias-alvarez/null-ls.nvim"] = {
+    after = "nvim-lspconfig",
+    config = function() require "custom.plugins.null-ls" end
+  },
 
-    -- autoclose tags in html, jsx etc
-    ["windwp/nvim-ts-autotag"] = {
-        ft = {"html", "javascriptreact"},
-        after = "nvim-treesitter",
-        config = function()
-            local present, autotag = pcall(require, "nvim-ts-autotag")
+  ["nvim-telescope/telescope-media-files.nvim"] = {
+    after = "telescope.nvim",
+    config = function()
+      require("telescope").setup {
+        extensions = {
+          media_files = { filetypes = { "png", "webp", "jpg", "jpeg" } }
+          -- fd is needed
+        }
+      }
+      require("telescope").load_extension "media_files"
+    end
+  },
 
-            if present then autotag.setup() end
-        end
-    },
+ --
+  -- get highlight group under cursor
+  ["nvim-treesitter/playground"] = {
+    cmd = "TSCaptureUnderCursor",
+    config = function() require "nvim-treesitter.configs" end
+  },
 
-    -- format & linting
-    --  Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua. 
-    ["jose-elias-alvarez/null-ls.nvim"] = {
-        after = "nvim-lspconfig",
-        config = function() require "custom.plugins.null-ls" end
-    },
+  -- dim inactive windows
+  ["andreadev-it/shade.nvim"] = {
+    module = "shade",
+    config = function()
+      require "custom.plugins.shade"
+    end,
+  },
 
-    ["nvim-telescope/telescope-media-files.nvim"] = {
-        after = "telescope.nvim",
-        config = function()
-            require("telescope").setup {
-                extensions = {
-                    media_files = {filetypes = {"png", "webp", "jpg", "jpeg"}}
-                    -- fd is needed
-                }
-            }
-            require("telescope").load_extension "media_files"
-        end
-    },
+    -- basic diagrams for flow charts etc
+  ["jbyuki/venn.nvim"] = {
+    module = "venn.nvim",
+    config = function()
+      require("custom.plugins.venn").setup()
+    end,
+  },
 
-    -- minimal modes
-    ["Pocco81/true-zen.nvim"] = {
-        cmd = {"TZAtaraxis", "TZMinimalist", "TZFocus"},
-        config = function() require "custom.plugins.truezen" end
-    },
+  --- autosave ---------- 
+  ["pocco81/auto-save.nvim"] = {
+    module = "autosave",
+    config = function() require("autosave").setup() end
+  },
 
-    -- notes stuff
-    ["nvim-neorg/neorg"] = {
-        ft = "norg",
-        after = "nvim-treesitter",
-        config = function() require "custom.plugins.neorg" end
-    },
+  -- ["sindrets/diffview.nvim"] = {
+    -- after = "plenary.nvim"
+    -- config = function()
+    --    require("custom.plugins.diffview").setup()
+    -- end,
+  -- },
 
-    -- get highlight group under cursor
-    ["nvim-treesitter/playground"] = {
-        cmd = "TSCaptureUnderCursor",
-        config = function() require "nvim-treesitter.configs" end
-    },
+  -- distraction free modes
+  -- ["Pocco81/true-zen.nvim"] = {
+  --     cmd = {"TZAtaraxis", "TZMinimalist", "TZFocus"},
+  --     config = function() require "custom.plugins.truezen" end
+  -- },
 
-    --  A tree like view for symbols in Neovim using the Language Server Protocol. Supports all your favourite languages. 
-    ["simrat39/symbols-outline.nvim"] = {},
+  --- wiki ---------- 
+  -- ["vimwiki/vimwiki"] = {
+  --   config = function()
+  --     vim.g.vimwiki_list = {
+  --       {
+  --         path = 'G:\\My Drive\\Document_backup\\vimwiki\\',
+  --         syntax = 'markdown',
+  --         ext = '.md'
+  --       }
+  --     }
+  --   end
+  -- },
 
-    -- All the lua functions I don't want to write twice.
-    ["nvim-lua/plenary.nvim"] = {},
-
-    ["sindrets/diffview.nvim"] = {
-        after = "plenary.nvim"
-        -- config = function()
-        --    require("custom.plugins.diffview").setup()
-        -- end,
-    },
-
-    ["Pocco81/auto-save.nvim"] = {
-        config = function() require "custom.plugins.autosave" end
-    }
+  --- notes stuff -----------
+  -- ["nvim-neorg/neorg"] = {
+  --     ft = "norg",
+  --     after = "nvim-treesitter",
+  --     config = function() require "custom.plugins.neorg" end
+  -- },
 }
