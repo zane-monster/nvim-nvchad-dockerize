@@ -37,17 +37,13 @@ return {
         --     require("core.utils").packer_lazy_load "nvim-dap"
         -- end,
     },
-    ["rcarriga/nvim-dap-ui"] = {
-        -- config = function() require("nvim-dap-ui").setup() end
-    },
-    ["theHamsta/nvim-dap-virtual-text"] = {
-        -- config = function() require("nvim-dap-virtual-text").setup() end
-    },
+    ["rcarriga/nvim-dap-ui"] = {},
+    ["theHamsta/nvim-dap-virtual-text"] = {},
     ["nvim-telescope/telescope-dap.nvim"] = {
         after = {
             "telescope.nvim", "nvim-dap", "nvim-dap-ui", "nvim-dap-virtual-text"
         },
-        -- config = function() require("telescope").load_extension "dap" end
+        config = function() require("telescope").load_extension "dap" end
     },
 
     ["ray-x/guihua.lua"] = {
@@ -123,8 +119,8 @@ return {
 
     --- autosave ---------- 
     ["pocco81/auto-save.nvim"] = {
-        module = "autosave",
-        config = function() require("autosave").setup() end
+        -- module = "auto-save",
+        -- config = function() require("auto-save").setup() end
     }
 
     -- ["sindrets/diffview.nvim"] = {
