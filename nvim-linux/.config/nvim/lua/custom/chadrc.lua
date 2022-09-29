@@ -1,9 +1,6 @@
 local M = {}
-print(">>> custom/plugins/chadrc.lua >>> before")
 
 M.plugins = require "custom.plugins"
-
-print(">>> custom/plugins/chadrc.lua >>> after")
 
 M.ui = {
     -- theme stuff
@@ -16,7 +13,5 @@ M.ui = {
 }
 
 M.mappings = require "custom.mappings"
-
-print(">>> custom/plugins/chadrc.lua >>> end")
 
 return M
