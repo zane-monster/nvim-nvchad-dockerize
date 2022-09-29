@@ -5,7 +5,7 @@ return {
     --- default plugins
     ["goolord/alpha-nvim"] = {
         disable = false,
-        cmd = "Alpha",
+        -- cmd = "Alpha",
         override_options = overrides.alpha
     },
 
