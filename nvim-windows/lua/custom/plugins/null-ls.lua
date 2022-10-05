@@ -15,9 +15,11 @@ local sources = {
 
     -- Shell
     b.formatting.shfmt, -- +200M sudo pacman -S shellcheck
-    -- b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+    b.diagnostics.shellcheck.with { diagnostics_format = "#{m} [#{c}]" },
+
     -- cpp
     b.formatting.clang_format
+    -- b.formatting.rustfmt,
 }
 
 null_ls.setup {debug = true, sources = sources}

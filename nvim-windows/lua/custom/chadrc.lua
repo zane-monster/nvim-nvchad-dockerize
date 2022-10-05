@@ -1,43 +1,17 @@
 local M = {}
 
-local override = require "custom.override"
-local userPlugins = require "custom.plugins"
-
-M.plugins = {
-   -- status = {
-   --    colorizer = true,
-   -- },
-
-   options = {
-      lspconfig = {
-         setup_lspconf = "custom.plugins.lspconfig",
-      },
-
-      statusline = {
-         separator_style = "round",
-      },
-   },
-
-   override = {
-      ["nvim-treesitter/nvim-treesitter"] = override.treesitter,
-      ["kyazdani42/nvim-tree.lua"] = override.nvimtree,
-      ["lukas-reineke/indent-blankline.nvim"] = override.blankline,
-   },
-
-   user = userPlugins,
-}
+M.plugins = require "custom.plugins"
 
 M.ui = {
-   theme = "onedark",
-   hl_override = require "custom.highlights",
+    -- theme stuff
+    -- theme = "everforest",
+    -- theme_toggle = {"onedark", "one_light"},
+
+    -- highlight groups!
+    -- hl_add = require("custom.highlights").new_hlgroups,
+    -- hl_override = require("custom.highlights").overriden_hlgroups
 }
 
-M.mappings = require "custom.mappings"
-
-M.options = {
-   user = function()
-      require "custom.options"
-   end
-}
+-- M.mappings = require "custom.mappings"
 
 return M

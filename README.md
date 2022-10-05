@@ -149,3 +149,23 @@ docker container run --rm -it \
 wsl -shutdown
 ```
 then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
+
+# Windows 10 Note
+
+## Install Neovim QT
+
+- [neovim-qt](https://github.com/equalsraf/neovim-qt)
+
+- Maybe reinsall replace update it from old version of neovim-qt
+
+- Maybe remove nvchad first before reinstall neovim-qt
+
+```
+# windows
+rd -r ~\AppData\Local\nvim
+rd -r ~\AppData\Local\nvim-data
+```
+
+```
+choco install neovim
+```
