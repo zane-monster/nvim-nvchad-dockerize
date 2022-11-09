@@ -146,7 +146,7 @@ docker container run --rm -it \
 # Windows WSL2
 ## restart WSL2 for vmmem process
 ```sh
-wsl -shutdown
+wsl --shutdown
 ```
 then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
 
@@ -168,4 +168,23 @@ rd -r ~\AppData\Local\nvim-data
 
 ```
 choco install neovim
+```
+
+## Fix Windows 10 Port Error
+
+### Port Error
+
+```
+docker start -ai 590d
+
+Error response from daemon: Ports are not available: exposing port TCP 127.0.0.1:4000 -> 0.0.0.0:0: listen tcp 127.0.0.1:4000: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
+```
+
+### Restart Windws winnat
+
+Run comands as administrator
+
+```
+net stop winnat
+net start winnat
 ```

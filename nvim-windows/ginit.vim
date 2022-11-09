@@ -33,3 +33,25 @@ xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
 snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""change the font by Ctrl + mouse scrol
+
+let s:fontsize = 12
+function! AdjustFontSize(amount)
+  let s:fontsize = s:fontsize+a:amount
+  :execute "GuiFont! Sarasa\ Mono\ SC\ Nerd\ Font:h" . s:fontsize
+endfunction
+
+noremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
+noremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
+inoremap <C-ScrollWheelUp> <Esc>:call AdjustFontSize(1)<CR>a
+inoremap <C-ScrollWheelDown> <Esc>:call AdjustFontSize(-1)<CR>a
+
+""" In normal mode, pressing numpad's+ increases the font
+noremap <kPlus> :call AdjustFontSize(1)<CR>
+noremap <kMinus> :call AdjustFontSize(-1)<CR>
+
+""" In insert mode, pressing ctrl + numpad's+ increases the font
+inoremap <C-kPlus> <Esc>:call AdjustFontSize(1)<CR>a
+inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
