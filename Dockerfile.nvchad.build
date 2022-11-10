@@ -9,7 +9,7 @@ USER root
 
 RUN pacman -Syyu --ignore linux,linux-headers,linux-api-headers --noconfirm \
     && pacman -S git base-devel tree \
-       tmux ctags vi reflector rsync curl neovim zip \
+       tmux ctags vi reflector rsync curl neovim zip inetutils \
        fd wget unzip ripgrep openssh \
        lua-language-server \
        python-pip \
@@ -40,6 +40,11 @@ EOF
 
 RUN <<EOF cat >> $HOME/.bashrc
 cd $HOME
+
+# Only load Liquidprompt in interactive shells, not from a script or from scp
+# [[ $- = *i* ]] && source liquidprompt
+source liquidprompt
+
 export PATH="$HOME/go/bin:$HOME/.local/bin:${PATH}"
 if [ -e $HOME/.bash_aliases ]; then
     source $HOME/.bash_aliases
@@ -73,7 +78,7 @@ RUN cd $HOME \
     && cd $HOME \
     && rm -rf yay-bin \
     && yay -Syu --aur --noconfirm \
-    && yay -S hugo-extended-bin --noconfirm
+    && yay -S hugo-extended-bin liquidprompt --noconfirm
 
 FROM yay as py
 USER nv
