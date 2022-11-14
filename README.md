@@ -144,10 +144,18 @@ docker container run --rm -it \
 
 # Windows WSL2
 ## restart WSL2 for vmmem process
+
+1. shoutdown WSL
 ```sh
 wsl --shutdown
 ```
-then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
+
+2. then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
+
+## free memeory >2GB by closing WSL2 and docker for other heavy app
+
+1. close docker desktop
+2. shoutdown WSL2
 
 # Windows 10 Note
 
