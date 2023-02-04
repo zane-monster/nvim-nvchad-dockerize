@@ -45,7 +45,7 @@ M.mason = {
         "lua-language-server", "stylua", 
         
         -- web dev
-        "css-lsp", "html-lsp", "typescript-language-server", "deno", "emmet-ls",
+        "css-lsp", "html-lsp", "typescript-language-server", "deno",
         "json-lsp", 
         
         -- shell

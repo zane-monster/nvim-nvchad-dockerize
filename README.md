@@ -22,22 +22,22 @@
 1. update the base image
 
 ```sh
-docker pull archlinux:base-devel
-# list images
 docker images
-# clean old images
-docker image rm a570
+docker pull archlinux:base-devel
+docker images # list images again
+# Remove all dangling images
+docker image prune
 ```
 
 2. build the image
 
 ```sh
-docker build -f Dockerfile.nvchad.build -t zane/nvchad .
+docker build -f Dockerfile.dev.build -t zane/dev .
 ```
 
 # How to use this docker image
 
-- create a docker volume if no existed volume before
+- create a docker volume if you want it
 
 ```sh
 docker volume create nvim_red_duck
@@ -46,11 +46,19 @@ docker volume create nvim_red_duck
 
 ### first, creating and starting a container
 
+0. the env file
+
+- rename `.env.example` to `.env`
+- fill `.env` file with your dir info.
+
 1. start docker compose services
 
 ```sh
 cd nvim-nvchad-dockerize
-docker-compose run --service-ports nvim bash
+# using .env file
+docker-compose run --service-ports dev
+# or using another env file
+docker-compose --env-file <.env.example> run --service-ports dev
 ```
 
 then, the nvim container is creaded and login the shell.
@@ -77,7 +85,7 @@ docker exec -it <running container id> bash
 1. start a new container in the first term
 
 ```sh
-docker run -it -p 3000:3000 -p 4000:4000 -p 8000:8000 -p 9000:9000 -v c:\a:/home/nv/a -v c:\Users\username\.ssh:/home/nv/.ssh -v "//var/run/docker.sock:/var/run/docker.sock" zane/nvchad
+docker run -it -p 3000:3000 -p 4000:4000 -p 8000:8000 -p 9000:9000 -v c:\a:/home/nv/a -v c:\Users\username\.ssh:/home/nv/.ssh -v "//var/run/docker.sock:/var/run/docker.sock" zane/dev
 
 sudo chmod 600 /home/nv/.ssh/config
 ```
@@ -187,7 +195,7 @@ docker start -ai 590d
 Error response from daemon: Ports are not available: exposing port TCP 127.0.0.1:4000 -> 0.0.0.0:0: listen tcp 127.0.0.1:4000: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
 ```
 
-### Restart Windws winnat
+#### Restart Windws winnat for port error
 
 Run comands as administrator
 

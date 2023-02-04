@@ -1,0 +1,148 @@
+# syntax = docker/dockerfile:1.3-labs
+
+# suggestion:
+# install [Sarasa Mono SC Nerd](https://github.com/laishulu/Sarasa-Mono-SC-Nerd)
+# this font using by terminal, on client
+FROM archlinux:base-devel AS base
+
+ARG USERNAME=dev
+ARG HOMEDIR=/home/$USERNAME
+
+ENV RUBY_VERSION="3.2.0" \
+    RUBY_2_7_VERSION="2.7.2"
+
+USER root
+
+RUN pacman -Syyu --ignore linux,linux-headers,linux-api-headers --noconfirm \
+    && pacman -S git base-devel tree \
+       tmux ctags vi reflector rsync curl neovim zip inetutils \
+       fd wget unzip ripgrep openssh gnupg \
+       lua-language-server \
+       python-pip \
+       nodejs-lts-gallium npm deno \
+       shfmt \
+       clang \
+       docker \
+       go cfssl protobuf \
+       postgresql \
+       --noconfirm --needed \
+    && pacman -Scc --noconfirm \
+    && pip install wheel virtualenv pipenv --no-cache-dir
+
+RUN useradd -m ${USERNAME}\
+    && echo '%'${USERNAME} 'ALL=(ALL) NOPASSWD:ALL' | sudo EDITOR='tee -a' visudo \
+    && usermod -G docker ${USERNAME}
+    # && chgrp docker /var/run/docker.sock
+
+FROM base AS files
+
+USER ${USERNAME}
+
+RUN <<EOF cat >> ${HOMEDIR}/.bash_aliases
+alias lt='ls --human-readable --size -1 -S --classify'
+alias myip='curl ipinfo.io/ip'
+alias vim='nvim'
+alias tmux='tmux -2'
+EOF
+
+RUN <<EOF cat >> ${HOMEDIR}/.bashrc
+cd ${HOMEDIR}
+
+# Only load Liquidprompt in interactive shells, not from a script or from scp
+# [[ $- = *i* ]] && source liquidprompt
+source liquidprompt
+
+export PATH="${HOMEDIR}/go/bin:${HOMEDIR}/.local/bin:${PATH}"
+if [ -e ${HOMEDIR}/.bash_aliases ]; then
+    source ${HOMEDIR}/.bash_aliases
+fi
+EOF
+
+RUN <<EOF cat >> ${HOMEDIR}/.tmux.conf
+set-option -sg escape-time 10
+set-option -g focus-events on
+set-option -g default-terminal "screen-256color"
+set -g history-limit 10000
+set-option -sa terminal-overrides ',xterm:RGB'
+EOF
+
+RUN <<EOF cat >> ${HOMEDIR}/.profile
+PATH="${HOMEDIR}/.local/bin:$PATH"
+export npm_config_prefix="${HOMEDIR}/.local"
+EOF
+
+RUN source ${HOMEDIR}/.bashrc \
+    && source ${HOMEDIR}/.profile
+
+# COPY ./configs ${HOMEDIR}
+
+FROM files AS yay
+USER ${USERNAME}
+RUN cd ${HOMEDIR} \
+    && git clone https://aur.archlinux.org/yay-bin.git \
+    && cd ${HOMEDIR}/yay-bin \
+    && makepkg -sri --needed --noconfirm \
+    && cd ${HOMEDIR} \
+    && rm -rf yay-bin .cache \
+    && yay -Syu --aur --noconfirm \
+    && yay -S hugo-extended-bin liquidprompt --noconfirm
+
+FROM yay AS ruby
+USER ${USERNAME}
+# RUN <<EOF cat >> ${HOMEDIR}/.bashrc
+# source ${HOMEDIR}/.rvm/scripts/rvm
+# EOF
+
+# Install RVM
+RUN set -ex && \
+  for key in \
+     409B6B1796C275462A1703113804BB82D39DC0E3 \
+     7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
+  ; do \
+      gpg --batch --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys "$key" || \
+      gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
+      gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
+  done
+
+RUN curl -sSL https://get.rvm.io | bash -s -- --with-gems="bundler" --autolibs=read-fail stable
+SHELL [ "/bin/bash", "-l", "-c" ]
+RUN source ${HOMEDIR}/.rvm/scripts/rvm \
+    && rvm install ${RUBY_VERSION} \
+    && rvm alias create default ${RUBY_VERSION}
+    # && rvm rubygems latest \
+
+
+FROM ruby as py
+USER ${USERNAME}
+RUN pip install --user --no-cache-dir \
+        pipenv \
+        pynvim neovim 
+
+FROM py AS node
+USER ${USERNAME}
+RUN npm set prefix="${HOMEDIR}/.local" \
+    && npm i -g eslint \
+      neovim \
+      typescript typescript-formatter typescript-language-server \
+      bash-language-server \
+      vim-language-server \
+      yarn \
+      @fsouza/prettierd \
+      vscode-langservers-extracted
+
+FROM node AS grpc_dev
+USER ${USERNAME}
+# https://grpc.io/docs/languages/go/quickstart/
+# Go plugins for the protocol compiler:
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28 \
+    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2 \
+    && export PATH="$PATH:$(go env GOPATH)/bin"
+
+FROM grpc_dev AS nvchad
+USER ${USERNAME}
+RUN git clone https://github.com/NvChad/NvChad ${HOMEDIR}/.config/nvim --depth 1 \
+    && mkdir -p ${HOMEDIR}/.config/nvim/lua/custom/plugins
+
+COPY --chown=${USERNAME} ./nvim-linux/.config ${HOMEDIR}/.config
+
+CMD ["/bin/bash", "-l"]

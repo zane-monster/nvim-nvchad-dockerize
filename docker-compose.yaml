@@ -1,8 +1,8 @@
 version: "3.9" # optional since v1.27.0
 
 services:
-  nvim:
-    image: zane/nvchad
+  dev:
+    image: ${IMAGE}
     ports:
       - "127.0.0.1:3333:3333/tcp"
       - "127.0.0.1:4000:4000/tcp"
@@ -11,10 +11,10 @@ services:
       - "127.0.0.1:8000:8000/tcp"
       - "127.0.0.1:9000:9000/tcp"
     volumes:
-      - c:\a:/home/nv/a
-      - c:\Users\zane_\.ssh:/home/nv/.ssh
+      - ${HOSTWORKDIR}:${HOMEDIR}/a
+      - ${HOSTSSHDIR}:${HOMEDIR}/.ssh
       - //var/run/docker.sock:/var/run/docker.sock
-      - nvim_red_duck:/home/nv/nvim_red_duck
+      - nvim_red_duck:${HOMEDIR}/nvim_red_duck
 
 volumes:
   nvim_red_duck:
