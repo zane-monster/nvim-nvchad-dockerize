@@ -17,31 +17,44 @@
 - ninja
 - ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
 
-# <details markdown='1'><summary>Buld docker image</summary>
-1. update the base image
+<details markdown='1'>
 
-```sh
-docker images
-docker pull archlinux:base-devel
-docker images # list images again
-# Remove all dangling images
-docker image prune
-```
+    <summary>
 
-2. build the image
+    # Buld docker image
 
-```sh
-docker build -f Dockerfile.dev.build -t zane/dev .
-```
+    </summary>
+
+    1. update the base image
+
+    ```sh
+    docker images
+    docker pull archlinux:base-devel
+    docker images # list images again
+    # Remove all dangling images
+    docker image prune
+    ```
+
+    2. build the image
+
+    ```sh
+    docker build -f Dockerfile.dev.build -t zane/dev .
+    ```
 </details>
 
-# <details markdown='1'><summary> How to use this docker image </summary>
+<details markdown='1'>
 
-- create a docker volume if you want it
+    <summary> 
 
-```sh
-docker volume create nvim_red_duck
-```
+    # How to use this docker image
+
+    </summary>
+
+    - create a docker volume if you want it
+
+    ```sh
+    docker volume create nvim_red_duck
+    ```
 
 </details>
 
