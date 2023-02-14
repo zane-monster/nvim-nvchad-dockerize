@@ -55,9 +55,3 @@ inoremap <C-kPlus> <Esc>:call AdjustFontSize(1)<CR>a
 inoremap <C-kMinus> <Esc>:call AdjustFontSize(-1)<CR>a
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"  let wiki_1 = {}
-"  let wiki_1.path = 'G:\My Drive\Document_backup\vimwiki'
-"  let wiki_1.syntax = 'markdown'
-"  let wiki_1.ext = '.md'
-"  let g:vimwiki_list = [wiki_1]

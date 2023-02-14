@@ -31,5 +31,5 @@ return {
         end
     },
 
-    print("custom/plugins/init.lua")
+    -- print("custom/plugins/init.lua")
 }
