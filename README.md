@@ -1,6 +1,8 @@
-[![my youtube channel](https://img.shields.io/badge/My-YouTube-Channel-FF0000?style=for-the-badge&logo=youtube&logoColor=white "zane.monster")](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
+[![my youtube channel](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white "zane.monster")](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
 
-- Build a docker image with ![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red)](https://nvchad.github.io/), ![[arch linux](https://img.shields.io/badge/-archlinux-orange)](https://archlinux.org/) for development.
+[![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCGry1v6wLt6AeQZ2J_7YgrA?label=zane.monster&style=social)](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
+
+- Build a docker image with ![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red)](https://nvchad.github.io/), [![arch linux](https://img.shields.io/badge/-archlinux-orange)](https://archlinux.org/) for development.
 
 # Support
 
