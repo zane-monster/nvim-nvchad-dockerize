@@ -18,12 +18,7 @@
 - ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
 
 <details markdown='1'>
-
-    <summary>
-
-    # Buld docker image
-
-    </summary>
+    <summary><h1>Buld docker image</h1></summary>
 
     1. update the base image
 
@@ -43,11 +38,8 @@
 </details>
 
 <details markdown='1'>
-
     <summary> 
-
     # How to use this docker image
-
     </summary>
 
     - create a docker volume if you want it
