@@ -17,9 +17,7 @@
 - ninja
 - ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
 
-# Buld docker image
-
-<details markdown='1'><summary>update and build </summary>
+# <details markdown='1'><summary>Buld docker image</summary>
 1. update the base image
 
 ```sh
@@ -37,7 +35,7 @@ docker build -f Dockerfile.dev.build -t zane/dev .
 ```
 </details>
 
-<details markdown='1'><summary> # How to use this docker image </summary>
+# <details markdown='1'><summary> How to use this docker image </summary>
 
 - create a docker volume if you want it
 
