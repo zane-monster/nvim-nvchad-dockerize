@@ -18,7 +18,7 @@
 - ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
 
 <details markdown='1'>
-    <summary><h1>Buld docker image</h1></summary>
+    <summary><h1>1 Buld docker image</h1></summary>
 
     1. update the base image
 
@@ -38,9 +38,7 @@
 </details>
 
 <details markdown='1'>
-    <summary> 
-    # How to use this docker image
-    </summary>
+    <summary><h1>2 How to use this docker image</h1></summary>
 
     - create a docker volume if you want it
 
@@ -48,11 +46,11 @@
     docker volume create nvim_red_duck
     ```
 
-</details>
 
-## docker compose lifecycle
+<details markdown='1'>
+    <summary><h2>2.1 docker compose lifecycle</h2></summary>
 
-### first, creating and starting a container
+### 2.1.1 creating and starting a container
 
 0. the env file
 
@@ -81,16 +79,20 @@ docker exec -it <the nvim container id> bash
 
 4. exit in the first term and docker rm ...
 
-### starting an exited container
+### 2.1.2 starting an exited container
 
 ```sh
 docker start -ai <exited container id>
 docker exec -it <running container id> bash
 ```
 
-## docker lifecycle without docker compose
+</details>
 
-1. start a new container in the first term
+<details markdown='1'>
+    <summary><h2>2.2 docker lifecycle without docker compose</h2></summary>
+
+
+### 2.2.1 start a new container in the first term
 
 ```sh
 docker run -it -p 3000:3000 -p 4000:4000 -p 8000:8000 -p 9000:9000 -v c:\a:/home/nv/a -v c:\Users\username\.ssh:/home/nv/.ssh -v "//var/run/docker.sock:/var/run/docker.sock" zane/dev
@@ -98,13 +100,13 @@ docker run -it -p 3000:3000 -p 4000:4000 -p 8000:8000 -p 9000:9000 -v c:\a:/home
 sudo chmod 600 /home/nv/.ssh/config
 ```
 
-2. start a exited container
+### 2.2.2 start a exited container
 
 ```sh
 docker start -ai <exited container id>
 ```
 
-3. connect to the running container
+### 2.2.3 connect to the running container
 
 ```sh
 docker exec -it <running container id> bash
@@ -113,26 +115,31 @@ docker exec -it <running container id> bash
 docker exec -u 0  -it <running container id> bash
 ```
 
-4. exit in the first term and docker rm ...
+### 2.2.4 exit in the first term and docker rm ...
 
-## After a contain first running
+</details>
 
-### init nvim
+## 2.3 After a contain first running
+
+### 2.3.1 init nvim
 
 1. start nvim, then :qa
 2. start nvim, then :GoInstallBinaries, then :qa
 3. start nvim, then open a go file(or cpp, js...), then :qa
 4. start nvim, then :checkhealth
 
-### update nvchad
+### 2.3.2 update nvchad
 
 ```
 <lead> + u + u
 ```
 
-# Arch linux notes
+</details>
 
-## set mirrorlist
+<details markdown='1'>
+    <summary><h1>3 Arch linux notes </h1></summary> 
+
+## 3.1 set mirrorlist
 
 ```sh
 # in docker # as root
@@ -146,9 +153,12 @@ reflector -f 5 --country 'United States' \
 --save /etc/pacman.d/mirrorlist
 ```
 
-# data backup
+</details>
 
-## cp "old_volume" to "new_volume" 
+<details markdown='1'>
+    <summary><h1>4 data backup</h1></summary>
+
+## 4.1 cp "old_volume" to "new_volume" 
 ```sh
 docker volume create --name new_volume
 
@@ -158,22 +168,12 @@ docker container run --rm -it \
            alpine ash -c "cd /from ; cp -av . /to"
 ```
 
-# Windows WSL2
-## restart WSL2 for vmmem process
+</details>
 
-1. shoutdown WSL
-```sh
-wsl --shutdown
-```
 
-2. then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
+<details markdown='1'>
+    <summary><h1>6 Git info init</h1></summary>
 
-## free memeory >2GB by closing WSL2 and docker for other heavy app
-
-1. close docker desktop
-2. shoutdown WSL2
-
-# Git info init
 ```sh
 git init .
 
@@ -196,9 +196,32 @@ git config --global --edit
 GIT_SSH_COMMAND="ssh -i ~/.ssh/a_private_key" git push origin main
 ```
 
-# Windows 10 Note
+</details>
 
-## Install Neovim QT
+
+<details markdown='1'>
+    <summary><h1>Windows WSL2</h1></summary>
+
+## restart WSL2 for vmmem process
+
+1. shoutdown WSL
+```sh
+wsl --shutdown
+```
+
+2. then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
+
+## free memeory >2GB by closing WSL2 and docker for other heavy app
+
+1. close docker desktop
+2. shoutdown WSL2
+
+</details>
+
+<details markdown='1'>
+    <summary><h1>7 Windows 10</h1></summary>
+
+## 7.1 Install Neovim QT
 
 - [neovim-qt](https://github.com/equalsraf/neovim-qt)
 
@@ -216,9 +239,9 @@ rd -r ~\AppData\Local\nvim-data
 choco install neovim
 ```
 
-## Fix Windows 10 Port Error
+## 7.2 Fix Windows 10 Port Error
 
-### Port Error
+### 7.2.1 Port Error
 
 ```
 docker start -ai 590d
@@ -226,7 +249,7 @@ docker start -ai 590d
 Error response from daemon: Ports are not available: exposing port TCP 127.0.0.1:4000 -> 0.0.0.0:0: listen tcp 127.0.0.1:4000: bind: An attempt was made to access a socket in a way forbidden by its access permissions.
 ```
 
-#### Restart Windws winnat for port error
+#### 7.2.2 Restart Windws winnat for port error
 
 Run comands as administrator
 
@@ -234,3 +257,5 @@ Run comands as administrator
 net stop winnat
 net start winnat
 ```
+
+</details>
