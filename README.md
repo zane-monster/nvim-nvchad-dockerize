@@ -18,7 +18,7 @@
 - ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
 
 <details markdown='1'>
-    <summary><h1>1 Buld docker image</h1></summary>
+    <summary><h1>1 Build docker image</h1></summary>
 
     1. update the base image
 
@@ -91,7 +91,6 @@ docker exec -it <running container id> bash
 <details markdown='1'>
     <summary><h2>2.2 docker lifecycle without docker compose</h2></summary>
 
-
 ### 2.2.1 start a new container in the first term
 
 ```sh
@@ -119,20 +118,24 @@ docker exec -u 0  -it <running container id> bash
 
 </details>
 
-## 2.3 After a contain first running
+<details markdown='1'>
+    <summary><h2>2.3 After a contain first running</h2></summary>
+
 
 ### 2.3.1 init nvim
 
 1. start nvim, then :qa
-2. start nvim, then :GoInstallBinaries, then :qa
-3. start nvim, then open a go file(or cpp, js...), then :qa
-4. start nvim, then :checkhealth
+2. start nvim, then :checkhealth
 
-### 2.3.2 update nvchad
+### 2.3.2 update nvchad if you want
 
 ```
 <lead> + u + u
 ```
+
+### Go to <5 Git info init>
+
+</details>
 
 </details>
 
@@ -172,7 +175,7 @@ docker container run --rm -it \
 
 
 <details markdown='1'>
-    <summary><h1>6 Git info init</h1></summary>
+    <summary><h1>5 Git info init</h1></summary>
 
 ```sh
 git init .
@@ -200,9 +203,9 @@ GIT_SSH_COMMAND="ssh -i ~/.ssh/a_private_key" git push origin main
 
 
 <details markdown='1'>
-    <summary><h1>Windows WSL2</h1></summary>
+    <summary><h1>6 Windows WSL2</h1></summary>
 
-## restart WSL2 for vmmem process
+## 6.1 restart WSL2 for vmmem process
 
 1. shoutdown WSL
 ```sh
@@ -211,7 +214,7 @@ wsl --shutdown
 
 2. then, docker-desk ask you restart the WSL2, or right click docker-desk icon and click restart.
 
-## free memeory >2GB by closing WSL2 and docker for other heavy app
+## 6.2 free memeory >2GB by closing WSL2 and docker for other heavy app
 
 1. close docker desktop
 2. shoutdown WSL2
