@@ -1,7 +1,12 @@
 [![my youtube channel](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white "zane.monster")](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCGry1v6wLt6AeQZ2J_7YgrA?label=zane.monster&style=for-the-badge)](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
 
-- Build a docker image with ![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red?style=for-the-badge)](https://nvchad.github.io/), [![arch linux](https://img.shields.io/badge/-archlinux-orange?style=for-the-badge)](https://archlinux.org/) for development.
+
+# Immutable Infrastructure For Development
+
+> 用于开发的不可变基础设施
+
+![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red?style=for-the-badge)](https://nvchad.github.io/) [![arch linux](https://img.shields.io/badge/-archlinux-orange?style=for-the-badge)](https://archlinux.org/)
 
 # Support
 
