@@ -2,24 +2,22 @@
 
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCGry1v6wLt6AeQZ2J_7YgrA?label=zane.monster&style=social)](https://www.youtube.com/channel/UCGry1v6wLt6AeQZ2J_7YgrA)
 
-- Build a docker image with ![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red)](https://nvchad.github.io/), [![arch linux](https://img.shields.io/badge/-archlinux-orange)](https://archlinux.org/) for development.
+- Build a docker image with ![NeoVim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white "Neovim") [![nvchad](https://img.shields.io/badge/-nvchad-red?style=for-the-badge)](https://nvchad.github.io/), [![arch linux](https://img.shields.io/badge/-archlinux-orange?style=for-the-badge)](https://archlinux.org/) for development.
 
 # Support
 
 ![Dockerfile](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white "dockerfile")
 ![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white "Arch Linux")
-
 ![Vim](https://img.shields.io/badge/VIM-%2311AB00.svg?&style=for-the-badge&logo=vim&logoColor=white "Vim")
-
 ![go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white "Go")
-![protobuf](https://img.shields.io/badge/-protobuf-green "Protobuf")
+![protobuf](https://img.shields.io/badge/-protobuf-green?style=for-the-badge "Protobuf")
 ![javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E "JavaScript")  ![typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white "typescript")
 ![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white "HTML") ![css3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white "css3") ![json](https://img.shields.io/badge/json-5E5C5C?style=for-the-badge&logo=json&logoColor=white "json" ) ![ESLint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white "ESLint")
 ![lua](https://img.shields.io/badge/Lua-2C2D72?style=for-the-badge&logo=lua&logoColor=white "lua")
 ![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white "C") ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white "C++")
 ![python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=blue "python")
 ![bash Shell](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white "bash shell")
-![ninja](https://img.shields.io/badge/-ninja-red "Ninja")
+![ninja](https://img.shields.io/badge/-ninja-red?style=for-the-badge "Ninja")
 
 <details markdown='1'>
     <summary><h1>1 Build docker image</h1></summary>
