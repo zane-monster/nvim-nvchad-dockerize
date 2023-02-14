@@ -19,6 +19,7 @@
 
 # Buld docker image
 
+<details markdown='1'><summary>update and build </summary>
 1. update the base image
 
 ```sh
@@ -34,14 +35,18 @@ docker image prune
 ```sh
 docker build -f Dockerfile.dev.build -t zane/dev .
 ```
+</details>
 
-# How to use this docker image
+<details markdown='1'><summary> # How to use this docker image </summary>
 
 - create a docker volume if you want it
 
 ```sh
 docker volume create nvim_red_duck
 ```
+
+</details>
+
 ## docker compose lifecycle
 
 ### first, creating and starting a container
@@ -164,6 +169,29 @@ wsl --shutdown
 
 1. close docker desktop
 2. shoutdown WSL2
+
+# Git info init
+```sh
+git init .
+
+# change to the main branch
+git config --global init.defaultBranch <main>
+git branch -m <main>
+
+# project settings, not globle
+git config user.name <"monster">
+git config user.email <"i@monster">
+git remote -v
+
+# edit the git settings file
+git config --global --edit
+```
+
+## using a key for git in shell
+
+```sh
+GIT_SSH_COMMAND="ssh -i ~/.ssh/a_private_key" git push origin main
+```
 
 # Windows 10 Note
 
